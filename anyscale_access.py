@@ -2,11 +2,12 @@
 
 import os
 import requests
+from dotenv import load_dotenv; load_dotenv()
 
 s = requests.Session()
 
-api_base = os.getenv("OPENAI_BASE_URL")
-token = os.getenv("OPENAI_API_KEY")
+api_base = os.environ["ANYSCALE_API_BASE"]
+token = os.environ["ANYSCALE_API_KEY"]
 url = f"{api_base}/chat/completions"
 body = {
   "model": "meta-llama/Llama-2-70b-chat-hf",
