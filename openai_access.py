@@ -16,7 +16,7 @@ def ask_open_ai(question):
       ]
     )
 
-    print(completion.choices[0].message)
+    print(completion.choices[0].message.content)
 
 
 def main():

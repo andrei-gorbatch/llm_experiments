@@ -19,7 +19,7 @@ def ask_any_scale(question):
     }
 
     with s.post(url, headers={"Authorization": f"Bearer {token}"}, json=body) as resp:
-        print(resp.json())
+        print(resp.json()["choices"][0]["message"]["content"])
 
 
 def main():
