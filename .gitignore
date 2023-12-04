@@ -7,3 +7,9 @@ ENV/
 env.bak/
 venv.bak/
 llm_env/
+
+# Python
+__pycache__/
+
+# Elo rating system
+model_comparison.json
