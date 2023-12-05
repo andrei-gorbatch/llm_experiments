@@ -4,14 +4,24 @@ import os
 from dotenv import load_dotenv; load_dotenv()
 from openai import OpenAI
 
-client = OpenAI()
+def ask_open_ai(question):
 
-completion = client.chat.completions.create(
-  model="gpt-3.5-turbo",
-  messages=[
-    {"role": "system", "content": "You are a poetic assistant, skilled in explaining complex programming concepts with creative flair."},
-    {"role": "user", "content": "Compose a poem that explains the concept of recursion in programming."}
-  ]
-)
+    client = OpenAI()
 
-print(completion.choices[0].message)
+    completion = client.chat.completions.create(
+      model="gpt-3.5-turbo",
+      messages=[
+        {"role": "system", "content": "You are a helpful assistant."},
+        {"role": "user", "content": question}
+      ]
+    )
+
+    print(completion.choices[0].message.content)
+
+
+def main():
+    question = "Say 'Test'."
+    ask_open_ai(question)
+
+if __name__ == "__main__":
+    main()
