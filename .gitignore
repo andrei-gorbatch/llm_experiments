@@ -12,5 +12,8 @@ llm-env/
 __pycache__/
 .vs/
 
+# Data
+data/
+
 # Elo rating system
 model_comparison.json
