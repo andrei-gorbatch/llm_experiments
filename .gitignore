@@ -6,10 +6,11 @@ venv/
 ENV/
 env.bak/
 venv.bak/
-llm_env/
+llm-env/
 
 # Python
 __pycache__/
+.vs/
 
 # Elo rating system
 model_comparison.json
