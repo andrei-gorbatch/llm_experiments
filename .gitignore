@@ -14,6 +14,7 @@ __pycache__/
 
 # Data
 data/
+Notes.md
 
 # Elo rating system
 model_comparison.json
