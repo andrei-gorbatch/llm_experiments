@@ -13,8 +13,12 @@ __pycache__/
 .vs/
 
 # Data
-data/
+source_documents/
+db/
 Notes.md
+
+# Models
+models/
 
 # Elo rating system
 model_comparison.json
