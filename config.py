@@ -2,4 +2,4 @@
 
 import os
 
-llm_models = ["any_scale", "open_ai"]
+llm_models = ["any_scale", "open_ai", "privateGPT"]

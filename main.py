@@ -15,6 +15,7 @@ from openai import OpenAI
 from config import llm_models
 from anyscale_access import ask_any_scale
 from openai_access import ask_open_ai
+import privateGPT  #TODO: fix impoort
 
 
 def main():
@@ -29,6 +30,10 @@ def main():
     # Ask the models
     model_dict=dict()
     for model, letter in zip(random.sample(llm_models, len(llm_models)), alc):
+        # Only serve two models
+        if letter == "c":
+            break
+        
         print(f"Model {letter}")
         model_dict[letter] = model
 
@@ -36,6 +41,9 @@ def main():
             ask_any_scale(question)
         elif model == "open_ai":
             ask_open_ai(question)
+        elif model == "privateGPT":
+            sys.argv = ["privateGPT.py", "--query", f'"{question}"', "-S", "-M", "-O"]
+            privateGPT.main()
         else:
             print("Invalid model name. Please check config.py.")
             sys.exit()

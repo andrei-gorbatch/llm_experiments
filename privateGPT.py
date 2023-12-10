@@ -28,6 +28,7 @@ from constants import CHROMA_SETTINGS
 def main():
     # Parse the command line arguments
     args = parse_arguments()
+    query = args.query
     embeddings = HuggingFaceEmbeddings(model_name=embeddings_model_name)
     chroma_client = chromadb.PersistentClient(settings=CHROMA_SETTINGS , path=persist_directory)
     db = Chroma(persist_directory=persist_directory, embedding_function=embeddings, client_settings=CHROMA_SETTINGS, client=chroma_client)
@@ -47,7 +48,9 @@ def main():
     qa = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=retriever, return_source_documents= not args.hide_source)
     # Interactive questions and answers
     while True:
-        query = input("\nEnter a query: ")
+        if query == None:
+            query = input("\nEnter a query: ")
+            
         if query == "exit":
             break
         if query.strip() == "":
@@ -70,15 +73,27 @@ def main():
             print("\n> " + document.metadata["source"] + ":")
             print(document.page_content)
 
+        # Exit if one-question is provided
+        if args.one_question:
+            break
+
 def parse_arguments():
     parser = argparse.ArgumentParser(description='privateGPT: Ask questions to your documents without an internet connection, '
                                                  'using the power of LLMs.')
+    
+    # parser.add_argument("query", type=str, default=None)
+    # add query as an optional argument
+    parser.add_argument("--query", "-Q", type=str, default=None, help="Query to ask the model.")
     parser.add_argument("--hide-source", "-S", action='store_true',
                         help='Use this flag to disable printing of source documents used for answers.')
 
     parser.add_argument("--mute-stream", "-M",
                         action='store_true',
                         help='Use this flag to disable the streaming StdOut callback for LLMs.')
+
+    parser.add_argument("--one-question", "-O",
+                        action='store_true',
+                        help='Use this flag to automatically exit after one question.')
 
     return parser.parse_args()
 
